@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Paperclips</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="bar">
+  <h1>Paperclips</h1>
+  <div class="mode" id="mode" aria-live="polite">Live</div>
+</header>
+
+<main>
+  <section class="panel stats" aria-label="Status">
+    <div class="big"><span class="label">Clips</span><span id="clips" class="num">0</span></div>
+    <dl class="grid">
+      <div><dt>Funds</dt><dd id="funds">$0.00</dd></div>
+      <div><dt>Wire</dt><dd id="wire">0</dd></div>
+      <div><dt>Inventory</dt><dd id="inventory">0</dd></div>
+      <div><dt>Tick</dt><dd id="tick">0</dd></div>
+      <div><dt>Seed</dt><dd id="seed">0</dd></div>
+      <div><dt>Hash</dt><dd id="hash" class="mono">00000000</dd></div>
+    </dl>
+  </section>
+
+  <section class="panel" aria-label="Time">
+    <h2>Time</h2>
+    <div class="speeds" role="radiogroup" aria-label="Speed">
+      <button type="button" data-speed="0" aria-pressed="false">Pause</button>
+      <button type="button" data-speed="10" aria-pressed="true">10/s</button>
+      <button type="button" data-speed="100" aria-pressed="false">100/s</button>
+      <button type="button" data-speed="1000" aria-pressed="false">1000/s</button>
+      <button type="button" data-speed="max" aria-pressed="false">Max</button>
+    </div>
+    <p class="hint" id="rate">&nbsp;</p>
+  </section>
+
+  <section class="panel" aria-label="Manufacturing">
+    <h2>Manufacturing</h2>
+    <div class="row">
+      <button type="button" class="primary" data-action="make">Make paperclip</button>
+    </div>
+    <div class="row">
+      <button type="button" data-action="wire">Buy wire</button>
+      <span class="info">+<span id="spool">0</span> wire for <span id="wirePrice">$0.00</span></span>
+    </div>
+    <div class="row">
+      <button type="button" data-action="autoclipper">Autoclipper</button>
+      <span class="info"><span id="autoclippers">0</span> owned · next <span id="nextAutoCost">$0.00</span></span>
+    </div>
+    <div class="row">
+      <button type="button" data-action="megaclipper">Megaclipper</button>
+      <span class="info"><span id="megaclippers">0</span> owned · next <span id="nextMegaCost">$0.00</span></span>
+    </div>
+    <div class="row">
+      <button type="button" data-action="extruder">Wire extruder</button>
+      <span class="info"><span id="extruders">0</span> owned · next <span id="nextExtruderCost">$0.00</span></span>
+    </div>
+  </section>
+
+  <section class="panel" aria-label="Business">
+    <h2>Business</h2>
+    <div class="row price">
+      <span class="info">Price <strong id="price">$0.25</strong></span>
+      <button type="button" data-action="price" data-delta="-10" aria-label="Lower price by 10 cents">−10</button>
+      <button type="button" data-action="price" data-delta="-1" aria-label="Lower price by 1 cent">−1</button>
+      <button type="button" data-action="price" data-delta="1" aria-label="Raise price by 1 cent">+1</button>
+      <button type="button" data-action="price" data-delta="10" aria-label="Raise price by 10 cents">+10</button>
+    </div>
+    <form class="row" id="priceForm">
+      <label for="priceInput">Set price (cents)</label>
+      <input id="priceInput" type="number" min="1" max="10000" step="1" value="25" inputmode="numeric">
+      <button type="submit" data-action="price" data-set="1">Set</button>
+    </form>
+    <div class="row">
+      <button type="button" data-action="marketing">Marketing</button>
+      <span class="info">level <span id="marketing">1</span> · next <span id="nextMarketingCost">$0.00</span></span>
+    </div>
+  </section>
+
+  <section class="panel" aria-label="Upgrades">
+    <h2>Upgrades</h2>
+    <div class="row">
+      <button type="button" data-action="upgrade" data-arg="autoboost">Autoboost</button>
+      <span class="info">autoclippers 2.5× · <span data-upcost="autoboost"></span></span>
+    </div>
+    <div class="row">
+      <button type="button" data-action="upgrade" data-arg="bigspool">Big spool</button>
+      <span class="info">3× wire per spool · <span data-upcost="bigspool"></span></span>
+    </div>
+    <div class="row">
+      <button type="button" data-action="upgrade" data-arg="megaboost">Megaboost</button>
+      <span class="info">megaclippers 2× · <span data-upcost="megaboost"></span></span>
+    </div>
+  </section>
+
+  <section class="panel" aria-label="Game">
+    <h2>Game</h2>
+    <form class="row" id="newForm">
+      <label for="seedInput">Seed</label>
+      <input id="seedInput" type="number" min="0" max="4294967295" step="1" value="42" inputmode="numeric">
+      <button type="submit" id="newGame">New game</button>
+    </form>
+    <div class="row">
+      <button type="button" id="exportReplay">Export replay</button>
+      <label class="filebtn">Import replay<input type="file" id="importReplay" accept=".json,application/json"></label>
+    </div>
+    <p class="hint"><span id="actionCount">0</span> recorded actions</p>
+    <p class="msg" id="message" role="status"></p>
+  </section>
+</main>
+
+<script src="engine.js"></script>
+<script src="ui.js"></script>
+</body>
+</html>
