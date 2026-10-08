@@ -1,0 +1,12 @@
+{
+  "name": "paperclips",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Deterministic incremental paperclip game with an autoplayer",
+  "scripts": {
+    "test": "node --test --test-timeout=900000 \"judge/test/*.test.js\" \"game/test/*.test.js\" \"autoplayer/test/*.test.js\"",
+    "verify": "node judge/verify.js",
+    "play": "node autoplayer/play.js --seed 42"
+  },
+  "engines": { "node": ">=20" }
+}
